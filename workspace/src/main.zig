@@ -8,9 +8,7 @@ const RedisServer = struct {
 
         const address = std.net.Address.initIp4([4]u8{ 0, 0, 0, 0 }, 6379);
 
-        try server.listen(address) catch |err| {
-            std.log.fatal("Error : {s}\n", .{err});
-        };
+        try server.listen(address);
         return RedisServer{ .stream_server = server };
     }
 
@@ -25,9 +23,7 @@ const RedisServer = struct {
 
             const response = "+PONG\r\n";
 
-            try conn.stream.write(response[0..]) catch |err| {
-                std.log.fatal("Error : {s}\n", .{err});
-            };
+            _ = try conn.stream.write(response[0..]);
         }
     }
 };
@@ -36,7 +32,5 @@ pub fn main() !void {
     var server = try RedisServer.init();
     defer server.stream_server.deinit();
 
-    try server.accept() catch |err| {
-        std.log.fatal("Error : {s}\n", .{err});
-    };
+    try server.accept();
 }
