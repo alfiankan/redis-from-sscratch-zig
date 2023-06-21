@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+
+  penguji:
+    build: ./alatuji
+    networks:
+      - pengujian
+    environment:
+      - SUPABASE_URL=https://iasgsxzqntbkgxocmmzm.supabase.co
+      - SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlhc2dzeHpxbnRia2d4b2NtbXptIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODcyNjUyODAsImV4cCI6MjAwMjg0MTI4MH0.rq9jhE5xmtFdnxzYYOFd7YC67MFqAZ4qbmzjIYg-OUQ
+      - GITHUB_REPO_URL=https://github.com/alfiankan/majelis-it-challenge-board
+    depends_on:
+      - redisnya
+
+  redisnya:
+    build: ./workspace
+    networks:
+      - pengujian
+
+
+
+networks:
+  pengujian:

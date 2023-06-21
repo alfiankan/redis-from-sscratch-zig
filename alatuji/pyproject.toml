@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "alatuji"
+version = "0.1.0"
+description = ""
+authors = ["alfiankan <alfiankan19@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+redis = {extras = ["hiredis"], version = "^4.5.5"}
+supabase = "^1.0.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
