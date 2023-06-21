@@ -1,17 +1,11 @@
-FROM python:3.10.6
+FROM alpine:3.18
 
-ENV PYTHONUNBUFFERED 1
+RUN apk update && apk add wget
+RUN apk add zig --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
 
-RUN python -m pip install poetry
-
-WORKDIR /workspace
-
+WORKDIR /app
 COPY . .
+ 
+RUN zig build
 
-ENV PATH="/root/.local/bin:$PATH"
-
-RUN poetry config virtualenvs.create false && poetry lock --no-update && poetry install
-
-ENTRYPOINT ["poetry", "run", "python", "main.py"] 
-
-EXPOSE 6379/tcp
+CMD ["/bin/sh", "-c", "/app/zig-out/bin/workspace"]
